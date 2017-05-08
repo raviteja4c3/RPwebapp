@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+    <style type="text/css" >
+    .button {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 16px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    cursor: pointer;
+}
+
+.button1 {
+    background-color: white; 
+    color: black; 
+    border: 2px solid #4CAF50;
+}
+
+.button1:hover {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.button2 {
+    background-color: white; 
+    color: black; 
+    border: 2px solid #008CBA;
+}
+
+.button2:hover {
+    background-color: #008CBA;
+    color: white;
+}
+
+    </style>
+     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
+        <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <script type="text/javascript">
+        $(document).ready (function(){
+        	console.log("On page load");
+        	var pathname = window.location.pathname; 
+        	//console.log("pathname:"+pathname); 
+        	var url = window.location.href;        	
+        	console.log("url:"+url);
+        	url = url.split('insight=');
+        	var watsonMessage = url[1].replace(/%20/g, " ");
+        	watsonMessage = watsonMessage.split('&Risk=');        	
+        	var watsonMessageInvst = watsonMessage[0];  
+        	console.log("watsonMessageInvst:"+watsonMessageInvst);        	
+        	var riskFactor = watsonMessage[1];
+        	console.log("riskFactor:"+riskFactor);
+        	
+        	$("#riskFactor").text(riskFactor);
+        	$("#watsonMsg").text(watsonMessageInvst);     
+        	        	
+
+        	if(riskFactor.includes("Low")){
+        		$("#lowrisk").css("border","2px solid Green");	
+        	}
+        	if(riskFactor.includes("Medium")){
+        	console.log("medium");
+        		$("#mediumrisk").css("border","2px solid Green");	
+        	}
+        	if(riskFactor.includes("High")){
+        		$("#highrisk").css("border","2px solid Green");	
+        	}         	
+        	
+        	
+        	$("#previous").click(function(){
+        		console.log("navigating previious page");
+        		 var url = window.location.href;        	
+             	  console.log("url:"+url);
+             	  url = url.split("ChooseRiskProfile.html");
+             	  var chooseRisjProfileURL = url[0]+"SmartRP.html";
+             	  console.log("chooseRisjProfileURL:"+chooseRisjProfileURL);                 
+                 window.location.replace(chooseRisjProfileURL);   
+        	});
+        	
+        });
+        
+          function lowRiskClick() {
+              console.log("lowRiskClick() entered.."); 
+              $("#planSelectedTxt").css("display","block");
+              $("#planName").text("Low Risk");
+               
+              $("#lowrisk").css("border","2px solid Green");
+              $("#mediumrisk").css("border","1px solid #008CBA");
+              $("#highrisk").css("border","1px solid #008CBA");                           
+          };
+          function mediumRiskClick() {
+              console.log("mediumRiskClick() entered..");  
+              $("#planSelectedTxt").css("display","block");
+              $("#planName").text("Medium Risk");
+              
+              $("#lowrisk").css("border","1px solid #008CBA");
+              $("#mediumrisk").css("border","2px solid Green");
+              $("#highrisk").css("border","1px solid #008CBA");  
+          };
+          function highRiskClick() {
+              console.log("highRiskClick() entered..");
+              $("#planSelectedTxtHigh").css("display","block");
+              $("#planName").text("High Risk");
+              
+              $("#lowrisk").css("border","1px solid #008CBA");
+              $("#mediumrisk").css("border","1px solid #008CBA");
+              $("#highrisk").css("border","2px solid Green");
+          };
+          
+        </script>
+        <meta http-equiv="Content-Type" content="text/html; charset=windows-1252"/>
+    </head>
+    <body style="background:#ffe">
+    
+    <div style="padding:30px;background:#ffe">
+   
+    <div>        
+     <p style="color:#053c6d;font-size:22px !important;font-family:arial;"> Based on the analysis of your twitter data, Our Watson Suggest you to choose <span id="riskFactor" style="font-weight:bold;font-size:24px;"> </span> Investment.</p>
+      <p style="color:#053c6d;font-size:22px !important;font-family:arial;"> Watson Suggestion on Investments is: <span id="watsonMsg" style="font-weight:bold;font-size:24px;"> </span> </p>
+    </div>
+    <div>
+    <p style="color:#4a4a4a;font-size:22px !important;font-family:arial;">  <span style="font-weight:bold;">Select</span> the type of investment you want to make </p>
+    </div>
+    <div style="">    
+    <div id="lowrisk" onclick="lowRiskClick()" style="float:left;margin:5px;padding:10px;border:1px solid #008CBA;border-radius:10px" >      
+      <img height="245" width="270" src="resources/images/LowRisk.PNG"/>
+    </div>
+    <div id="mediumrisk" onclick="mediumRiskClick()" style="float:left;margin:5px;padding:10px;border:1px solid #008CBA;border-radius:10px">
+            <img height="242" width="268" src="resources/images/ModerateRisk.png"/>
+    </div>
+    <div id="highrisk"  onclick="highRiskClick()" style="float:left;margin:5px;padding:10px;border:1px solid #008CBA;border-radius:10px">
+            <img height="243" width="258" src="resources/images/HighRisk.PNG"/>
+    </div>    
+    </div>
+     
+    <div style="clear:both;">   
+      <br/>
+      <p id="planSelectedTxt" style="color:#4a4a4a;font-size:22px !important;font-family:arial;display:none;"> 
+      You have selected <span id="planName" style="font-weight:bold;"></span>  Investment.</p>
+      <br/>
+    <button class="button button2"  id="previous">  PREVIOUS </button>
+    <button class="button button2" style="margin-left:50px;">CONTINUE </button>
+    </div>
+    
+    </div>
+    </body>
+</html>
